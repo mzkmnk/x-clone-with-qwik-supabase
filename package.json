@@ -24,7 +24,9 @@
     "postinstall": "drizzle-kit generate:sqlite",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "db:migrate": "npx drizzle-kit generate:pg --config drizzle.config.ts",
+    "db:push": "npx drizzle-kit push:pg --config drizzle.config.ts"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.12.1",
