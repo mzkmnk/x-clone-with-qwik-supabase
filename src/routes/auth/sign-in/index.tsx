@@ -14,11 +14,15 @@ export const useSignInWithGithub = routeAction$(async (_, requestEv) => {
   });
 
   if (error) {
-    throw new Error(`github sign in error: ${error.message}`);
+    return {
+      url: null,
+      error: error.message,
+    };
   }
 
   return {
     url: data.url,
+    error: null,
   };
 });
 
@@ -28,7 +32,7 @@ export default component$(() => {
   const navigate = useNavigate();
 
   useTask$(async ({ track }) => {
-    track(() => signInWithGithub.value);
+    track(() => signInWithGithub.value?.url);
 
     if (signInWithGithub.value?.url) {
       await navigate(signInWithGithub.value.url);
@@ -36,13 +40,18 @@ export default component$(() => {
   });
 
   return (
-    <button
-      class="flex gap-2 items-center border border-slate-600 rounded-md p-2 cursor-pointer hover:bg-slate-200 transition"
-      type="submit"
-      onClick$={() => signInWithGithub.submit()}
-    >
-      <LuGithub class="text-2xl" />
-      <p>Sign in with Github</p>
-    </button>
+    <div class="inline-flex flex-col items-center">
+      <button
+        class="flex gap-2 items-center border border-slate-600 rounded-md p-2 cursor-pointer hover:bg-slate-200 transition"
+        type="submit"
+        onClick$={() => signInWithGithub.submit()}
+      >
+        <LuGithub class="text-2xl" />
+        <p>Sign in with Github</p>
+      </button>
+      {signInWithGithub.value && signInWithGithub.value.error ? (
+        <p class="text-red-500 mt-2">{signInWithGithub.value.error}</p>
+      ) : null}
+    </div>
   );
 });
