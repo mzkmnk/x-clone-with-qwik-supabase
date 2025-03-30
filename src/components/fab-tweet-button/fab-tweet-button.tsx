@@ -9,7 +9,7 @@ export default component$(() => {
     <div>
       <button
         type="button"
-        class="fixed bottom-16 left-52 border-full w-14 h-14 bg-blue-500 hover:bg-blue-600 transition rounded-full flex items-center justify-center cursor-pointer"
+        class="fixed bottom-16 left-52 border w-14 h-14 bg-blue-500 hover:bg-blue-600 transition rounded-full flex items-center justify-center cursor-pointer"
         onClick$={() => {
           isShowDialog.value = !isShowDialog.value;
         }}
