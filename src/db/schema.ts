@@ -1,9 +1,11 @@
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
-/** todos */
-export const todos = pgTable("todos", {
-  id: serial("id").primaryKey(),
-  label: text("label").notNull(),
-  created_at: timestamp("created_at").notNull().defaultNow(),
-  updated_at: timestamp("updated_at").notNull().defaultNow(),
+export const tweets = pgTable("tweets", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("userId").notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
+
+export type InsertTweetModel = typeof tweets.$inferInsert;
